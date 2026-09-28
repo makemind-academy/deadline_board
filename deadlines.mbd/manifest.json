@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "manifest": {
+    "id": "com.makemind.sample.deadlines",
+    "name": "Deadlines",
+    "version": "1.0.0",
+    "schemaVersion": "1.0.0",
+    "type": "application",
+    "entryPoint": "ui.app",
+    "description": "What is due, and the rule that says so.",
+    "provider": "MakeMind",
+    "license": "MIT",
+    "category": "business",
+    "tags": ["accounting", "deadlines", "sample"],
+    "publisher": { "name": "makemind.dev", "email": "dev@makemind.dev" }
+  }
+}

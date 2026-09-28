@@ -1,0 +1,71 @@
+{
+  "type": "application",
+  "title": "Deadlines",
+  "version": "1.0.0",
+  "initialRoute": "/",
+  "routes": {
+    "/": "ui://pages/board"
+  },
+  "theme": {
+    "mode": "light",
+    "color": {
+      "primary": "#b91c1c",
+      "onPrimary": "#ffffff",
+      "primaryContainer": "#fbe3e3",
+      "onPrimaryContainer": "#4c0d0d",
+      "surface": "#ffffff",
+      "onSurface": "#181413",
+      "surfaceContainerHighest": "#f6f4f3",
+      "onSurfaceVariant": "#867e7c",
+      "outline": "#e9e3e2",
+      "outlineVariant": "#e9e3e2",
+      "error": "#b3261e",
+      "onError": "#ffffff",
+      "warning": "#a4620a",
+      "onWarning": "#ffffff",
+      "inverseSurface": "#181413",
+      "inverseOnSurface": "#ffffff"
+    },
+    "spacing": {
+      "xxs": 2,
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "2xl": 48
+    },
+    "shape": {
+      "none": 0,
+      "extraSmall": 4,
+      "small": 8,
+      "medium": 12,
+      "large": 16,
+      "extraLarge": 28,
+      "full": 999
+    },
+    "fonts": {
+      "JetBrainsMono": {
+        "source": "asset",
+        "family": "JetBrainsMono"
+      }
+    }
+  },
+  "state": {
+    "initial": {
+      "today": "",
+      "rows": [],
+      "rowCount": 0,
+      "overdue": 0,
+      "soon": 0,
+      "shifted": 0,
+      "headline": "",
+      "filingRule": ""
+    }
+  },
+  "onInit": {
+    "type": "tool",
+    "tool": "deadlines.list",
+    "params": {}
+  }
+}

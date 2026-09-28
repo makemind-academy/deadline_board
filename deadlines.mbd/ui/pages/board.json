@@ -1,0 +1,482 @@
+{
+  "type": "page",
+  "metadata": {
+    "title": "Deadline board"
+  },
+  "onInit": {
+    "type": "tool",
+    "tool": "board.today",
+    "params": {}
+  },
+  "state": {
+    "initial": {
+      "today": "",
+      "rows": [],
+      "rowCount": 0,
+      "overdue": 0,
+      "soon": 0,
+      "shifted": 0,
+      "headline": "",
+      "filingRule": ""
+    }
+  },
+  "content": {
+    "type": "container",
+    "decoration": {
+      "color": "{{theme.color.surfaceContainerHighest}}"
+    },
+    "child": {
+      "type": "linear",
+      "direction": "vertical",
+      "children": [
+        {
+          "type": "container",
+          "padding": {
+            "left": 22,
+            "right": 22,
+            "top": 20,
+            "bottom": 16
+          },
+          "decoration": {
+            "color": "{{theme.color.surface}}",
+            "border": {
+              "bottom": true,
+              "color": "{{theme.color.outline}}",
+              "width": 1
+            }
+          },
+          "child": {
+            "type": "linear",
+            "direction": "horizontal",
+            "crossAxisAlignment": "center",
+            "children": [
+              {
+                "type": "linear",
+                "direction": "vertical",
+                "children": [
+                  {
+                    "type": "text",
+                    "content": "FILINGS · ALL CLIENTS",
+                    "style": {
+                      "fontSize": 12,
+                      "color": "{{theme.color.onSurfaceVariant}}",
+                      "letterSpacing": 2.0
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "content": "{{headline}}",
+                    "style": {
+                      "fontSize": 21,
+                      "color": "{{theme.color.onSurface}}",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ],
+                "gap": 4
+              },
+              {
+                "type": "spacer"
+              },
+              {
+                "type": "linear",
+                "direction": "vertical",
+                "children": [
+                  {
+                    "type": "text",
+                    "content": "TODAY",
+                    "style": {
+                      "fontSize": 11,
+                      "color": "{{theme.color.onSurfaceVariant}}",
+                      "letterSpacing": 1.6
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "content": "{{today}}",
+                    "style": {
+                      "fontSize": 16,
+                      "color": "{{theme.color.onSurface}}",
+                      "fontFamily": "JetBrainsMono"
+                    }
+                  }
+                ],
+                "gap": 4,
+                "crossAxisAlignment": "end"
+              }
+            ]
+          }
+        },
+        {
+          "type": "container",
+          "padding": {
+            "left": 24,
+            "right": 24,
+            "top": 10,
+            "bottom": 4
+          },
+          "child": {
+            "type": "linear",
+            "direction": "horizontal",
+            "crossAxisAlignment": "center",
+            "children": [
+              {
+                "type": "button",
+                "label": "All clients",
+                "variant": "outlined",
+                "onTap": {
+                  "type": "tool",
+                  "tool": "board.today",
+                  "params": {}
+                }
+              },
+              {
+                "type": "box",
+                "width": 10
+              },
+              {
+                "type": "button",
+                "label": "Brightwater",
+                "variant": "outlined",
+                "onTap": {
+                  "type": "tool",
+                  "tool": "board.client",
+                  "params": {
+                    "client": "Brightwater"
+                  }
+                }
+              },
+              {
+                "type": "box",
+                "width": 10
+              },
+              {
+                "type": "button",
+                "label": "Fairfield",
+                "variant": "outlined",
+                "onTap": {
+                  "type": "tool",
+                  "tool": "board.client",
+                  "params": {
+                    "client": "Fairfield"
+                  }
+                }
+              },
+              {
+                "type": "box",
+                "width": 10
+              },
+              {
+                "type": "button",
+                "label": "Northgate",
+                "variant": "outlined",
+                "onTap": {
+                  "type": "tool",
+                  "tool": "board.client",
+                  "params": {
+                    "client": "Northgate"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "expanded",
+          "child": {
+            "type": "container",
+            "padding": {
+              "left": 22,
+              "right": 22,
+              "top": 16,
+              "bottom": 8
+            },
+            "child": {
+              "type": "container",
+              "padding": {
+                "all": 18
+              },
+              "decoration": {
+                "color": "{{theme.color.surface}}",
+                "borderRadius": 14,
+                "border": {
+                  "color": "{{theme.color.outline}}",
+                  "width": 1
+                }
+              },
+              "child": {
+                "type": "list",
+                "items": "{{rows}}",
+                "shrinkWrap": true,
+                "itemSpacing": 10,
+                "emptyMessage": "Nothing due — every rule lands past the horizon",
+                "itemTemplate": {
+                  "type": "linear",
+                  "direction": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "linear",
+                      "direction": "horizontal",
+                      "crossAxisAlignment": "center",
+                      "children": [
+                        {
+                          "type": "container",
+                          "width": 70,
+                          "child": {
+                            "type": "text",
+                            "content": "{{item.due}}",
+                            "textAlign": "start",
+                            "style": {
+                              "fontSize": 15,
+                              "color": "{{theme.color.primary}}",
+                              "textAlign": "start",
+                              "fontFamily": "JetBrainsMono"
+                            },
+                            "maxLines": 1
+                          },
+                          "alignment": "centerStart"
+                        },
+                        {
+                          "type": "box",
+                          "width": 0
+                        },
+                        {
+                          "type": "expanded",
+                          "child": {
+                            "type": "text",
+                            "content": "{{item.name}}",
+                            "style": {
+                              "fontSize": 16,
+                              "color": "{{theme.color.onSurface}}"
+                            }
+                          }
+                        },
+                        {
+                          "type": "box",
+                          "width": 0
+                        },
+                        {
+                          "type": "container",
+                          "width": 110,
+                          "child": {
+                            "type": "text",
+                            "content": "{{item.state}}",
+                            "textAlign": "end",
+                            "style": {
+                              "fontSize": 13,
+                              "color": "{{theme.color.warning}}",
+                              "textAlign": "end",
+                              "fontFamily": "JetBrainsMono"
+                            },
+                            "maxLines": 1
+                          },
+                          "alignment": "centerEnd"
+                        },
+                        {
+                          "type": "box",
+                          "width": 0
+                        },
+                        {
+                          "type": "container",
+                          "width": 56,
+                          "child": {
+                            "type": "text",
+                            "content": "{{item.days}} d",
+                            "textAlign": "end",
+                            "style": {
+                              "fontSize": 13,
+                              "color": "{{theme.color.onSurfaceVariant}}",
+                              "textAlign": "end",
+                              "fontFamily": "JetBrainsMono"
+                            },
+                            "maxLines": 1
+                          },
+                          "alignment": "centerEnd"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "padding": {
+                        "left": 70
+                      },
+                      "child": {
+                        "type": "text",
+                        "content": "{{item.client}} · {{item.rule}}",
+                        "style": {
+                          "fontSize": 12,
+                          "color": "{{theme.color.onSurfaceVariant}}"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "container",
+          "padding": {
+            "left": 22,
+            "right": 22,
+            "top": 6,
+            "bottom": 8
+          },
+          "child": {
+            "type": "container",
+            "padding": {
+              "all": 18
+            },
+            "decoration": {
+              "color": "{{theme.color.surface}}",
+              "borderRadius": 14,
+              "border": {
+                "color": "{{theme.color.outline}}",
+                "width": 1
+              }
+            },
+            "child": {
+              "type": "linear",
+              "direction": "horizontal",
+              "crossAxisAlignment": "center",
+              "children": [
+                {
+                  "type": "linear",
+                  "direction": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": "OVERDUE",
+                      "style": {
+                        "fontSize": 11,
+                        "color": "{{theme.color.onSurfaceVariant}}",
+                        "letterSpacing": 1.6
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "content": "{{overdue}}",
+                      "style": {
+                        "fontSize": 20,
+                        "color": "{{theme.color.primary}}",
+                        "fontFamily": "JetBrainsMono"
+                      }
+                    }
+                  ],
+                  "gap": 4
+                },
+                {
+                  "type": "container",
+                  "padding": {
+                    "left": 36,
+                    "right": 0,
+                    "top": 0,
+                    "bottom": 0
+                  },
+                  "child": {
+                    "type": "linear",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "type": "text",
+                        "content": "DUE WITHIN A WEEK",
+                        "style": {
+                          "fontSize": 11,
+                          "color": "{{theme.color.onSurfaceVariant}}",
+                          "letterSpacing": 1.6
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "content": "{{soon}}",
+                        "style": {
+                          "fontSize": 20,
+                          "color": "{{theme.color.onSurface}}",
+                          "fontFamily": "JetBrainsMono"
+                        }
+                      }
+                    ],
+                    "gap": 4
+                  }
+                },
+                {
+                  "type": "container",
+                  "padding": {
+                    "left": 36,
+                    "right": 0,
+                    "top": 0,
+                    "bottom": 0
+                  },
+                  "child": {
+                    "type": "linear",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "type": "text",
+                        "content": "MOVED BY A WEEKEND",
+                        "style": {
+                          "fontSize": 11,
+                          "color": "{{theme.color.onSurfaceVariant}}",
+                          "letterSpacing": 1.6
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "content": "{{shifted}}",
+                        "style": {
+                          "fontSize": 20,
+                          "color": "{{theme.color.warning}}",
+                          "fontFamily": "JetBrainsMono"
+                        }
+                      }
+                    ],
+                    "gap": 4
+                  }
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "text",
+                  "content": "{{rowCount}} duties",
+                  "style": {
+                    "fontSize": 14,
+                    "color": "{{theme.color.onSurfaceVariant}}",
+                    "fontFamily": "JetBrainsMono"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "container",
+          "padding": {
+            "left": 22,
+            "right": 22,
+            "top": 4,
+            "bottom": 18
+          },
+          "child": {
+            "type": "linear",
+            "direction": "horizontal",
+            "crossAxisAlignment": "center",
+            "children": [
+              {
+                "type": "text",
+                "content": "{{filingRule}}",
+                "style": {
+                  "fontSize": 13,
+                  "color": "{{theme.color.onSurfaceVariant}}"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "crossAxisAlignment": "stretch"
+    }
+  }
+}
